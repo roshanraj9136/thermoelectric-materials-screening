@@ -1,0 +1,7 @@
+matminer
+numpy
+openpyxl
+pandas
+pymatgen
+scikit-learn
+shap
