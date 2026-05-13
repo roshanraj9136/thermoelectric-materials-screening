@@ -3,5 +3,6 @@ numpy
 openpyxl
 pandas
 pymatgen
+requests==2.32.4
 scikit-learn
 shap
