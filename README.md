@@ -15,11 +15,11 @@ This repository contains a reproducible local workflow for screening high-entrop
 
 | Path | Description |
 | --- | --- |
+| `Code_Thermoelectrics.py` | Complete thermoelectric screening and active learning code. |
 | `run_colab_workflow.py` | Local Python runner for the complete screening workflow. |
 | `data/estm.xlsx` | ESTM thermoelectric dataset used by the workflow. |
 | `thermoelectric_report.pdf` | Project report PDF. |
 | `COLAB_SETUP.md` | Notes for reproducing the original Google Colab environment. |
-| `source_colab_url.txt` | Original Colab URL reference. |
 
 ## Method
 
