@@ -69,7 +69,9 @@ try:
     OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 except NameError:
     OUTPUT_DIR = os.getcwd()  # Colab: uses current working directory
-ESTM_PATH = os.path.join(OUTPUT_DIR, "estm.xlsx")
+ESTM_PATH = os.path.join(OUTPUT_DIR, "data", "estm.xlsx")
+if not os.path.exists(ESTM_PATH):
+    ESTM_PATH = os.path.join(OUTPUT_DIR, "estm.xlsx")
 
 # HEC system elements (enhanced from 11 research papers)
 # Mn added: appears in zT=2.46 champion (AgMnGePbSbTe5), uniquely drives
@@ -1172,12 +1174,11 @@ def print_results(design_space, ground_truth, sampled_idx, sampled_B,
                 bar = "#" * bar_len
                 print(f"    {el:3s} = {frac:.2f}  {bar:<16s}  {role}")
 
-        # Properties
         print(f"\n  Properties:")
-        print(f"    zT_max (peak)              = {zT_max:.3f}")
-        print(f"    B_avg (mean zT, 300-800K)  = {B_avg:.4f}")
+        print(f"    zT_avg (mean, 300-800K)    = {B_avg:.4f}")
         print(f"    Efficiency eta_CPM         = {eta_cpm*100:.2f}%")
         print(f"    Efficiency eta_Snyder      = {eta_snyder*100:.2f}%")
+        print(f"    zT_max (peak)              = {zT_max:.3f}")
         print(f"    Delta_S_conf               = {entropy:.2f} J/(mol*K)")
         print(f"    Number of cations          = {nc}")
         print(f"    Number of anions           = {na}")
@@ -1226,12 +1227,7 @@ def print_results(design_space, ground_truth, sampled_idx, sampled_B,
     header = f"  {'Metric':<30} | {'#1':>10} | {'#2':>10} | {'#3':>10} | {'Global':>10}"
     print(header)
     print(f"  {'-'*30}-+-{'-'*10}-+-{'-'*10}-+-{'-'*10}-+-{'-'*10}-")
-    print(f"  {'zT_max':<30} | "
-          f"{top_compounds[0]['zT_max']:>10.3f} | "
-          f"{top_compounds[1]['zT_max']:>10.3f} | "
-          f"{top_compounds[2]['zT_max']:>10.3f} | "
-          f"{global_best_zT:>10.3f}")
-    print(f"  {'B_avg (mean zT)':<30} | "
+    print(f"  {'zT_avg (mean 300-800K)':<30} | "
           f"{top_compounds[0]['B_avg']:>10.4f} | "
           f"{top_compounds[1]['B_avg']:>10.4f} | "
           f"{top_compounds[2]['B_avg']:>10.4f} | "
@@ -1241,6 +1237,11 @@ def print_results(design_space, ground_truth, sampled_idx, sampled_B,
           f"{top_compounds[1]['eta_cpm']*100:>10.2f} | "
           f"{top_compounds[2]['eta_cpm']*100:>10.2f} | "
           f"{eta_global*100:>10.2f}")
+    print(f"  {'zT_max (peak)':<30} | "
+          f"{top_compounds[0]['zT_max']:>10.3f} | "
+          f"{top_compounds[1]['zT_max']:>10.3f} | "
+          f"{top_compounds[2]['zT_max']:>10.3f} | "
+          f"{global_best_zT:>10.3f}")
     print(f"  {'Delta_S [J/(mol*K)]':<30} | "
           f"{top_compounds[0]['entropy']:>10.2f} | "
           f"{top_compounds[1]['entropy']:>10.2f} | "
